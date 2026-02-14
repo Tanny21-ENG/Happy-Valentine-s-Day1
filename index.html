@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 ป้อนรหัสรัก 💕</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="heart-rain">
+                <div class="heart">❤️</div>
+                <div class="heart">💕</div>
+                <div class="heart">💖</div>
+                <div class="heart">💗</div>
+                <div class="heart">💝</div>
+            </div>
+
+            <h1 class="login-title">ตั้งค่ารหัส <span class="pin-highlight">PIN</span></h1>
+            <p class="login-subtitle">กรอก PIN ความรักของเราให้ครบ 6 หลักนะ 💘</p>
+
+            <form id="loginForm" class="login-form" autocomplete="off">
+                <div class="pin-group" aria-label="กรอก PIN 6 หลัก">
+                    <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-index="0"
+                        aria-label="หลักที่ 1">
+                    <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-index="1"
+                        aria-label="หลักที่ 2">
+                    <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-index="2"
+                        aria-label="หลักที่ 3">
+                    <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-index="3"
+                        aria-label="หลักที่ 4">
+                    <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-index="4"
+                        aria-label="หลักที่ 5">
+                    <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-index="5"
+                        aria-label="หลักที่ 6">
+                    <input type="hidden" id="password" name="password" required>
+                </div>
+                <p class="pin-hint">* รหัส PIN ต้องประกอบด้วยตัวเลข 6 หลัก</p>
+
+                <button type="submit" class="login-btn">
+                    <span>เปิดดูความรัก 💝</span>
+                </button>
+
+                <div id="errorMessage" class="error-message hidden">
+                    รหัสไม่ถูกต้อง ลองใหม่นะ 🥺
+                </div>
+
+                <div class="hint">
+                    <button type="button" id="hintBtn" class="hint-btn">
+                        💡 เคล็ดลับ
+                    </button>
+                    <div id="hintText" class="hint-text hidden">
+                        คบกันวันไหนเดือนไหนปีไหน
+                    </div>
+                </div>
+            </form>
+
+            <div class="love-quote">
+                <p>"ขอบคุณนะขอให้ไส่รหัสได้ถูกละน้ำอ้อย"</p>
+            </div>
+        </div>
+
+        <div class="floating-hearts">
+            <div class="floating-heart">❤️</div>
+            <div class="floating-heart">💕</div>
+            <div class="floating-heart">💖</div>
+            <div class="floating-heart">💗</div>
+            <div class="floating-heart">💝</div>
+            <div class="floating-heart">💓</div>
+            <div class="floating-heart">💞</div>
+            <div class="floating-heart">💘</div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+
+</html>
