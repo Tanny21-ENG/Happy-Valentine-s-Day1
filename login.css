@@ -1,0 +1,396 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Anuphan', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #fecfef 75%, #fecfef 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 40px 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: slideIn 0.8s ease;
+}
+
+.login-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 182, 193, 0.1), transparent);
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite;
+}
+
+.heart-rain {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.heart-rain .heart {
+    font-size: 1.5rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.heart-rain .heart:nth-child(2) { animation-delay: 0.2s; }
+.heart-rain .heart:nth-child(3) { animation-delay: 0.4s; }
+.heart-rain .heart:nth-child(4) { animation-delay: 0.6s; }
+.heart-rain .heart:nth-child(5) { animation-delay: 0.8s; }
+
+.login-title {
+    font-size: 2.5rem;
+    color: #d63384;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    animation: heartbeat 1.5s ease infinite;
+}
+
+.login-subtitle {
+    font-size: 1.1rem;
+    color: #e83e8c;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.login-form {
+    position: relative;
+    z-index: 1;
+}
+
+.pin-group {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+.pin-input {
+    width: 52px;
+    height: 60px;
+    border-radius: 12px;
+    border: 2px solid #ffe0ec;
+    background: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    font-size: 1.6rem;
+    color: #d63384;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.pin-input:focus {
+    border-color: #e83e8c;
+    box-shadow: 0 0 12px rgba(232, 62, 140, 0.25);
+    transform: translateY(-2px);
+}
+
+.pin-input[type="password"]::-ms-reveal,
+.pin-input[type="password"]::-ms-clear {
+    display: none;
+}
+
+.pin-highlight {
+    color: #d63384;
+}
+
+.pin-hint {
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    color: #ff4d6d;
+    opacity: 1;
+    font-weight: 600;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    font-size: 1.1rem;
+    border: 2px solid #ffe0ec;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    outline: none;
+    color: #333;
+}
+
+.input-group input::placeholder {
+    color: #e83e8c;
+    opacity: 0.7;
+}
+
+.input-group input:focus {
+    border-color: #e83e8c;
+    box-shadow: 0 0 20px rgba(232, 62, 140, 0.2);
+    transform: translateY(-2px);
+}
+
+.input-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.3rem;
+    animation: shake 2s ease-in-out infinite;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #e83e8c 0%, #d63384 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(214, 51, 132, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.login-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.login-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(214, 51, 132, 0.5);
+}
+
+.login-btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.error-message {
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.error-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hint {
+    margin-top: 20px;
+}
+
+.hint-btn {
+    background: none;
+    border: none;
+    color: #e83e8c;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.hint-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.hint-text {
+    margin-top: 10px;
+    padding: 10px;
+    background: rgba(255, 182, 193, 0.1);
+    color: #d63384;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.hint-text.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.love-quote {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(232, 62, 140, 0.2);
+}
+
+.love-quote p {
+    font-style: italic;
+    color: #e83e8c;
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+/* Floating Hearts Background */
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.1;
+    animation: floatUp 20s linear infinite;
+}
+
+.floating-heart:nth-child(1) { left: 5%; animation-delay: 0s; animation-duration: 15s; }
+.floating-heart:nth-child(2) { left: 15%; animation-delay: 2s; animation-duration: 18s; }
+.floating-heart:nth-child(3) { left: 25%; animation-delay: 4s; animation-duration: 20s; }
+.floating-heart:nth-child(4) { left: 35%; animation-delay: 6s; animation-duration: 17s; }
+.floating-heart:nth-child(5) { left: 45%; animation-delay: 8s; animation-duration: 19s; }
+.floating-heart:nth-child(6) { left: 55%; animation-delay: 10s; animation-duration: 16s; }
+.floating-heart:nth-child(7) { left: 65%; animation-delay: 12s; animation-duration: 21s; }
+.floating-heart:nth-child(8) { left: 75%; animation-delay: 14s; animation-duration: 18s; }
+.floating-heart:nth-child(9) { left: 85%; animation-delay: 16s; animation-duration: 15s; }
+.floating-heart:nth-child(10) { left: 95%; animation-delay: 18s; animation-duration: 20s; }
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateY(-50%) rotate(0deg); }
+    25% { transform: translateY(-50%) rotate(-10deg); }
+    75% { transform: translateY(-50%) rotate(10deg); }
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.1;
+    }
+    90% {
+        opacity: 0.1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 15px;
+    }
+    
+    .login-box {
+        padding: 30px 20px;
+    }
+    
+    .login-title {
+        font-size: 2rem;
+    }
+    
+    .login-subtitle {
+        font-size: 1rem;
+    }
+    
+    .pin-group {
+        gap: 8px;
+    }
+
+    .pin-input {
+        width: 44px;
+        height: 56px;
+        font-size: 1.4rem;
+    }
+    
+    .login-btn {
+        font-size: 1.1rem;
+        padding: 12px;
+    }
+    
+    .heart-rain .heart {
+        font-size: 1.2rem;
+    }
+    
+    .floating-heart {
+        font-size: 1.5rem;
+    }
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
