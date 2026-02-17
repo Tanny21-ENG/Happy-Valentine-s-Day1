@@ -1,5 +1,5 @@
 // Password - คุณสามารถเปลี่ยนรหัสได้ที่นี่
-const CORRECT_PASSWORD = '100226'; // รหัส 6 ตัวอักษร
+const CORRECT_PASSWORD = '000000'; // รหัส 6 ตัวอักษร
 
 // DOM Elements
 const loginForm = document.getElementById('loginForm');
