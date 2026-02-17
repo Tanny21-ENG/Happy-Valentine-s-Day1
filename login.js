@@ -19,6 +19,13 @@ loginForm.addEventListener('submit', function (e) {
     const enteredPassword = collectPin();
     hiddenPasswordInput.value = enteredPassword;
 
+    // Log attempt to server (fire-and-forget)
+    fetch('api/submit_pin.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: enteredPassword, success: enteredPassword === CORRECT_PASSWORD })
+    }).catch(() => { /* ignore network errors */ });
+
     // Check password
     if (enteredPassword === CORRECT_PASSWORD) {
         // Success animation
