@@ -1,4 +1,5 @@
-let celebrated = false;
+// Initialize celebrated flag from localStorage
+let celebrated = localStorage.getItem('celebrationShown') === 'true';
 // Countdown for a 1-year period (start 10/02/69 BE → end 10/02/70 BE)
 function updateCountdown() {
     // BE 2569 ("69") → AD 2026 ; BE 2570 ("70") → AD 2027
@@ -16,15 +17,18 @@ function updateCountdown() {
     } else if (now >= startDate && now < endDate) {
         target = endDate;
         if (header) header.textContent = 'นับถอยหลังสู่ครบ 1 ปี (10/02/69 → 10/02/70)';
-    } else {
-        // Completed the 1-year period
+    } else if (now >= endDate) {
+        // COMPLETED: the 1-year period
         if (header) header.textContent = 'ครบ 1 ปีแล้ว 🎉';
         document.getElementById('days').textContent = '0';
         document.getElementById('hours').textContent = '0';
         document.getElementById('minutes').textContent = '0';
         document.getElementById('seconds').textContent = '0';
-        // Trigger celebration overlay (only once)
-        if (!celebrated) showCelebrationOverlay();
+        // Trigger celebration overlay (only if not shown yet)
+        if (!celebrated) {
+            console.log('Triggering celebration overlay...');
+            showCelebrationOverlay();
+        }
         return;
     }
 
@@ -338,14 +342,24 @@ setInterval(createRandomHeart, 3000);
 
 // Celebration overlay and confetti when anniversary completes
 function showCelebrationOverlay() {
-    if (celebrated) return;
+    console.log('showCelebrationOverlay called, celebrated =', celebrated);
+    if (celebrated) {
+        console.log('Already celebrated, skipping.');
+        return;
+    }
     celebrated = true;
+    localStorage.setItem('celebrationShown', 'true');
+
     const overlay = document.getElementById('celebrationOverlay');
-    if (!overlay) return;
+    if (!overlay) {
+        console.error('celebrationOverlay element not found');
+        return;
+    }
 
     overlay.classList.remove('hidden');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden'; // Prevent scrolling
+    console.log('Overlay shown');
 
     // Ensure music is playing for mood
     if (music && music.paused) {
@@ -377,6 +391,7 @@ function showCelebrationOverlay() {
 
     // Helper function to close overlay
     function closeCelebration() {
+        console.log('Closing celebration overlay');
         overlay.classList.add('hidden');
         overlay.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
@@ -384,19 +399,27 @@ function showCelebrationOverlay() {
         clearInterval(heartInterval);
     }
 
-    // Close button handler
+    // Close button handler - use addEventListener with proper delegation
     const closeBtn = document.getElementById('celebrateClose');
     if (closeBtn) {
-        closeBtn.onclick = closeCelebration;
+        // Remove existing listeners (if any) and add fresh one
+        const newCloseBtn = closeBtn.cloneNode(true);
+        closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+        newCloseBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeCelebration();
+        });
+        console.log('Close button handler attached');
     }
 
-    // Click outside overlay to close
-    const overlayClickHandler = (e) => {
+    // Click outside overlay to close (click on background)
+    overlay.addEventListener('click', (e) => {
         if (e.target === overlay) {
+            e.preventDefault();
             closeCelebration();
         }
-    };
-    overlay.addEventListener('click', overlayClickHandler);
+    });
 }
 
 // Add keyboard interaction - Press 'L' for love
