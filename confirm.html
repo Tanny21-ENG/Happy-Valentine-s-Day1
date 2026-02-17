@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="th">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ขอเป็นแฟนไหม? 💘</title>
+    <style>
+        :root {
+            --pink: #ff6b81;
+            --bg: #fff7fb
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Anuphan, system-ui, Arial;
+            background: linear-gradient(180deg, #fff0f6 0%, #fff7fb 100%);
+            color: #222
+        }
+
+        .stage {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 0 0 8px;
+            text-align: center
+        }
+
+        p {
+            color: #666;
+            margin: 0 0 20px;
+            text-align: center
+        }
+
+        .area {
+            position: relative;
+            width: 100%;
+            max-width: 760px;
+            height: 320px;
+            border-radius: 18px;
+            background: radial-gradient(circle at 10% 10%, #fff, #ffeef3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+
+        .buttons {
+            display: flex;
+            gap: 28px;
+            align-items: center
+        }
+
+        .btn {
+            padding: 16px 28px;
+            border-radius: 999px;
+            border: 0;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            transition: transform .14s ease, box-shadow .14s ease
+        }
+
+        .btn:active {
+            transform: translateY(2px)
+        }
+
+        .yes {
+            background: var(--pink);
+            color: #fff
+        }
+
+        .no {
+            background: #f3f3f3;
+            color: #333;
+            position: fixed;
+            right: calc(50% - 120px);
+            top: calc(50% + 20px)
+        }
+
+        .hint {
+            position: absolute;
+            left: 18px;
+            bottom: 12px;
+            color: #a33;
+            font-weight: 600
+        }
+
+        .celebrate {
+            animation: pop .9s ease
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1)
+            }
+
+            50% {
+                transform: scale(1.08)
+            }
+
+            100% {
+                transform: scale(1)
+            }
+        }
+
+        @media (max-width:520px) {
+            .area {
+                height: 360px
+            }
+
+            .no {
+                right: 8px;
+                top: auto;
+                bottom: 80px;
+                position: fixed
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stage">
+        <h1>อยากเป็นแฟนกันไหม?</h1>
+        <p>ตอบจริง ๆ เลยนะ — กด `เป็น` ถ้าอยากเป็นแฟนกัน 🤍</p>
+
+        <div class="area" id="area">
+            <div class="buttons" aria-hidden>
+                <button id="yesBtn" class="btn yes" aria-label="เป็น">เป็น 💖</button>
+                <button id="noBtn" class="btn no" aria-label="ไม่เป็น">ไม่เป็น 😅</button>
+            </div>
+            <div class="hint">(ถ้ากด "ไม่เป็น" บางทีก็จะวาปหนี 😉)</div>
+        </div>
+    </div>
+
+    <script src="confirm.js"></script>
+</body>
+
+</html>

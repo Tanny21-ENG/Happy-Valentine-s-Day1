@@ -31,9 +31,9 @@ loginForm.addEventListener('submit', function (e) {
         // Success animation
         createSuccessAnimation();
 
-        // Redirect after animation
+        // Redirect after animation -> go to playful confirm page first
         setTimeout(() => {
-            window.location.href = 'valentine.html';
+            window.location.href = 'confirm.html';
         }, 1500);
     } else {
         // Wrong password
