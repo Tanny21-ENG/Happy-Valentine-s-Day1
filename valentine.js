@@ -340,6 +340,17 @@ function createRandomHeart() {
 // Create a new random heart every 3 seconds
 setInterval(createRandomHeart, 3000);
 
+// Global function to close celebration overlay
+window.closeCelebrationOverlay = function () {
+    console.log('Closing celebration via global function');
+    const overlay = document.getElementById('celebrationOverlay');
+    if (overlay) {
+        overlay.classList.add('hidden');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    }
+};
+
 // Celebration overlay and confetti when anniversary completes
 function showCelebrationOverlay() {
     console.log('showCelebrationOverlay called, celebrated =', celebrated);
@@ -358,7 +369,7 @@ function showCelebrationOverlay() {
 
     overlay.classList.remove('hidden');
     overlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+    document.body.style.overflow = 'hidden';
     console.log('Overlay shown');
 
     // Ensure music is playing for mood
@@ -383,53 +394,31 @@ function showCelebrationOverlay() {
         setTimeout(() => piece.remove(), 4500);
     }, 80);
 
-    // Stop periodic effects after a timeout (overlay still stays until closed)
+    // Stop periodic effects after a timeout
     setTimeout(() => {
         clearInterval(confettiInterval);
         clearInterval(heartInterval);
     }, 8000);
 
-    // Helper function to close overlay
-    function closeCelebration() {
-        console.log('Closing celebration overlay');
-        overlay.classList.add('hidden');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        clearInterval(confettiInterval);
-        clearInterval(heartInterval);
-    }
-
-    // Close button handler 
+    // Setup close button 
     const closeBtn = document.getElementById('celebrateClose');
     if (closeBtn) {
-        console.log('closeBtn found:', closeBtn);
         closeBtn.style.pointerEvents = 'auto';
         closeBtn.style.cursor = 'pointer';
-        closeBtn.onclick = function (e) {
-            console.log('Close button clicked');
-            e.preventDefault();
-            e.stopPropagation();
-            closeCelebration();
-        };
-        closeBtn.addEventListener('click', function (e) {
-            console.log('Close button clicked (addEventListener)');
-            e.preventDefault();
-            e.stopPropagation();
-            closeCelebration();
-        }, true); // Use capture phase
-        console.log('Close button handler attached');
+        closeBtn.style.zIndex = '10001';
+        closeBtn.onclick = window.closeCelebrationOverlay;
+        console.log('Close button set up with onclick to window.closeCelebrationOverlay');
     } else {
-        console.error('closeBtn NOT found!');
+        console.error('celebrateClose button not found');
     }
 
-    // Click outside overlay to close (click on background)
-    overlay.addEventListener('click', (e) => {
-        console.log('Overlay clicked, target:', e.target);
+    // Click outside to close
+    overlay.onclick = function (e) {
+        console.log('Overlay click, target:', e.target.id || e.target.className);
         if (e.target === overlay) {
-            e.preventDefault();
-            closeCelebration();
+            window.closeCelebrationOverlay();
         }
-    });
+    };
 }
 
 // Add keyboard interaction - Press 'L' for love
