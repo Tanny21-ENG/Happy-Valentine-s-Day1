@@ -399,22 +399,32 @@ function showCelebrationOverlay() {
         clearInterval(heartInterval);
     }
 
-    // Close button handler - use addEventListener with proper delegation
+    // Close button handler 
     const closeBtn = document.getElementById('celebrateClose');
     if (closeBtn) {
-        // Remove existing listeners (if any) and add fresh one
-        const newCloseBtn = closeBtn.cloneNode(true);
-        closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
-        newCloseBtn.addEventListener('click', function (e) {
+        console.log('closeBtn found:', closeBtn);
+        closeBtn.style.pointerEvents = 'auto';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.onclick = function (e) {
+            console.log('Close button clicked');
             e.preventDefault();
             e.stopPropagation();
             closeCelebration();
-        });
+        };
+        closeBtn.addEventListener('click', function (e) {
+            console.log('Close button clicked (addEventListener)');
+            e.preventDefault();
+            e.stopPropagation();
+            closeCelebration();
+        }, true); // Use capture phase
         console.log('Close button handler attached');
+    } else {
+        console.error('closeBtn NOT found!');
     }
 
     // Click outside overlay to close (click on background)
     overlay.addEventListener('click', (e) => {
+        console.log('Overlay clicked, target:', e.target);
         if (e.target === overlay) {
             e.preventDefault();
             closeCelebration();
