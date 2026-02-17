@@ -345,6 +345,7 @@ function showCelebrationOverlay() {
 
     overlay.classList.remove('hidden');
     overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden'; // Prevent scrolling
 
     // Ensure music is playing for mood
     if (music && music.paused) {
@@ -374,21 +375,28 @@ function showCelebrationOverlay() {
         clearInterval(heartInterval);
     }, 8000);
 
-    // Close handlers
-    const closeBtn = document.getElementById('celebrateClose');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            overlay.classList.add('hidden');
-            overlay.setAttribute('aria-hidden', 'true');
-        });
+    // Helper function to close overlay
+    function closeCelebration() {
+        overlay.classList.add('hidden');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        clearInterval(confettiInterval);
+        clearInterval(heartInterval);
     }
 
-    overlay.addEventListener('click', (e) => {
+    // Close button handler
+    const closeBtn = document.getElementById('celebrateClose');
+    if (closeBtn) {
+        closeBtn.onclick = closeCelebration;
+    }
+
+    // Click outside overlay to close
+    const overlayClickHandler = (e) => {
         if (e.target === overlay) {
-            overlay.classList.add('hidden');
-            overlay.setAttribute('aria-hidden', 'true');
+            closeCelebration();
         }
-    });
+    };
+    overlay.addEventListener('click', overlayClickHandler);
 }
 
 // Add keyboard interaction - Press 'L' for love
