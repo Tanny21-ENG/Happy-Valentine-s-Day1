@@ -1,5 +1,5 @@
-// Initialize celebrated flag from localStorage
-let celebrated = localStorage.getItem('celebrationShown') === 'true';
+// Initialize celebrated flag from localStorage (disabled celebration overlay)
+let celebrated = true; // Always true = overlay won't show
 // Countdown for a 1-year period (start 10/02/69 BE → end 10/02/70 BE)
 function updateCountdown() {
     // BE 2569 ("69") → AD 2026 ; BE 2570 ("70") → AD 2027
