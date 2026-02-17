@@ -1,26 +1,52 @@
-// Countdown to Valentine's Day
+let celebrated = false;
+// Countdown for a 1-year period (start 10/02/69 BE → end 10/02/70 BE)
 function updateCountdown() {
-    const valentineDate = new Date('2025-02-14T00:00:00');
+    // BE 2569 ("69") → AD 2026 ; BE 2570 ("70") → AD 2027
+    const startDate = new Date('2026-02-10T00:00:00'); // 10/02/69 (start)
+    const endDate = new Date('2027-02-10T00:00:00');   // 10/02/70 (complete)
     const now = new Date();
-    const diff = valentineDate - now;
-    
-    if (diff > 0) {
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        document.getElementById('days').textContent = days;
-        document.getElementById('hours').textContent = hours;
-        document.getElementById('minutes').textContent = minutes;
-        document.getElementById('seconds').textContent = seconds;
+
+    const header = document.querySelector('.love-counter h3');
+
+    // Determine which target to count toward
+    let target = null;
+    if (now < startDate) {
+        target = startDate;
+        if (header) header.textContent = 'นับถอยหลังจะเริ่ม — 10/02/69';
+    } else if (now >= startDate && now < endDate) {
+        target = endDate;
+        if (header) header.textContent = 'นับถอยหลังสู่ครบ 1 ปี (10/02/69 → 10/02/70)';
     } else {
-        // It's Valentine's Day or after
+        // Completed the 1-year period
+        if (header) header.textContent = 'ครบ 1 ปีแล้ว 🎉';
         document.getElementById('days').textContent = '0';
         document.getElementById('hours').textContent = '0';
         document.getElementById('minutes').textContent = '0';
         document.getElementById('seconds').textContent = '0';
+        // Trigger celebration overlay (only once)
+        if (!celebrated) showCelebrationOverlay();
+        return;
     }
+
+    const diff = target - now;
+    if (diff <= 0) {
+        // edge case — fall back to zeros
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
+        document.getElementById('seconds').textContent = '0';
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('days').textContent = days;
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
 }
 
 // Update countdown every second
@@ -61,17 +87,17 @@ function closeVideoPopup() {
 }
 
 if (surpriseBtn) {
-    surpriseBtn.addEventListener('click', function() {
+    surpriseBtn.addEventListener('click', function () {
         if (surpriseMessage) {
             surpriseMessage.classList.remove('hidden');
             setTimeout(() => {
                 surpriseMessage.classList.add('show');
             }, 10);
         }
-        
+
         createHeartBurst();
         openVideoPopup();
-        
+
         this.textContent = 'ฉันรักเธอมาก ❤️';
         this.disabled = true;
         this.style.opacity = '0.8';
@@ -191,7 +217,7 @@ document.addEventListener('touchstart', function handleFirstTouch() {
     document.removeEventListener('touchstart', handleFirstTouch);
 });
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     startBackgroundMusic();
 });
 
@@ -199,7 +225,7 @@ window.addEventListener('load', function() {
 function createHeartBurst() {
     const colors = ['❤️', '💕', '💖', '💗', '💝'];
     const container = document.body;
-    
+
     for (let i = 0; i < 20; i++) {
         setTimeout(() => {
             const heart = document.createElement('div');
@@ -211,9 +237,9 @@ function createHeartBurst() {
             heart.style.pointerEvents = 'none';
             heart.style.zIndex = '9999';
             heart.style.animation = 'floatUp 3s ease-out forwards';
-            
+
             container.appendChild(heart);
-            
+
             // Remove heart after animation
             setTimeout(() => {
                 heart.remove();
@@ -224,7 +250,7 @@ function createHeartBurst() {
 
 // Add interactive hover effects to memory cards
 document.querySelectorAll('.memory-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
+    card.addEventListener('mouseenter', function () {
         // Create small floating heart
         const heart = document.createElement('div');
         heart.textContent = '💕';
@@ -233,13 +259,13 @@ document.querySelectorAll('.memory-card').forEach(card => {
         heart.style.fontSize = '20px';
         heart.style.animation = 'floatUp 2s ease-out forwards';
         heart.style.zIndex = '10';
-        
+
         const rect = this.getBoundingClientRect();
         heart.style.left = rect.left + rect.width / 2 + 'px';
         heart.style.top = rect.top + 'px';
-        
+
         document.body.appendChild(heart);
-        
+
         setTimeout(() => {
             heart.remove();
         }, 2000);
@@ -248,7 +274,7 @@ document.querySelectorAll('.memory-card').forEach(card => {
 
 // Add click interaction to reason items
 document.querySelectorAll('.reason-item').forEach((item, index) => {
-    item.addEventListener('click', function() {
+    item.addEventListener('click', function () {
         // Create ripple effect
         const ripple = document.createElement('div');
         ripple.style.position = 'absolute';
@@ -259,14 +285,14 @@ document.querySelectorAll('.reason-item').forEach((item, index) => {
         ripple.style.transform = 'translate(-50%, -50%)';
         ripple.style.pointerEvents = 'none';
         ripple.style.animation = 'ripple 0.6s ease-out';
-        
+
         const rect = this.getBoundingClientRect();
         ripple.style.left = event.clientX - rect.left + 'px';
         ripple.style.top = event.clientY - rect.top + 'px';
-        
+
         this.style.position = 'relative';
         this.appendChild(ripple);
-        
+
         setTimeout(() => {
             ripple.remove();
         }, 600);
@@ -299,9 +325,9 @@ function createRandomHeart() {
     heart.style.zIndex = '1';
     heart.style.opacity = '0.4';
     heart.style.animation = 'floatUp 10s linear forwards';
-    
+
     document.body.appendChild(heart);
-    
+
     setTimeout(() => {
         heart.remove();
     }, 10000);
@@ -310,8 +336,63 @@ function createRandomHeart() {
 // Create a new random heart every 3 seconds
 setInterval(createRandomHeart, 3000);
 
+// Celebration overlay and confetti when anniversary completes
+function showCelebrationOverlay() {
+    if (celebrated) return;
+    celebrated = true;
+    const overlay = document.getElementById('celebrationOverlay');
+    if (!overlay) return;
+
+    overlay.classList.remove('hidden');
+    overlay.setAttribute('aria-hidden', 'false');
+
+    // Ensure music is playing for mood
+    if (music && music.paused) {
+        music.play().catch(() => { });
+        musicBtn.classList.add('playing');
+    }
+
+    // Start repeated heart bursts for a short while
+    createHeartBurst();
+    const heartInterval = setInterval(createHeartBurst, 800);
+
+    // Confetti generator
+    const confettiContainer = document.getElementById('confettiContainer');
+    const colors = ['#ff6b81', '#ff9a9e', '#ffd3e2', '#ffe8f0', '#ffd1dc'];
+    const confettiInterval = setInterval(() => {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        confettiContainer.appendChild(piece);
+        setTimeout(() => piece.remove(), 4500);
+    }, 80);
+
+    // Stop periodic effects after a timeout (overlay still stays until closed)
+    setTimeout(() => {
+        clearInterval(confettiInterval);
+        clearInterval(heartInterval);
+    }, 8000);
+
+    // Close handlers
+    const closeBtn = document.getElementById('celebrateClose');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            overlay.classList.add('hidden');
+            overlay.setAttribute('aria-hidden', 'true');
+        });
+    }
+
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.classList.add('hidden');
+            overlay.setAttribute('aria-hidden', 'true');
+        }
+    });
+}
+
 // Add keyboard interaction - Press 'L' for love
-document.addEventListener('keypress', function(event) {
+document.addEventListener('keypress', function (event) {
     if (event.key === 'l' || event.key === 'L') {
         const messages = [
             'ฉันรักเธอ ❤️',
@@ -320,7 +401,7 @@ document.addEventListener('keypress', function(event) {
             'ขอบคุณที่อยู่ข้างๆ ฉัน 💗',
             'เธอคือทุกสิ่ง 💝'
         ];
-        
+
         const message = messages[Math.floor(Math.random() * messages.length)];
         const popup = document.createElement('div');
         popup.textContent = message;
@@ -334,9 +415,9 @@ document.addEventListener('keypress', function(event) {
         popup.style.zIndex = '10000';
         popup.style.animation = 'fadeInOut 2s ease forwards';
         popup.style.textShadow = '2px 2px 4px rgba(0,0,0,0.2)';
-        
+
         document.body.appendChild(popup);
-        
+
         setTimeout(() => {
             popup.remove();
         }, 2000);
@@ -358,15 +439,15 @@ document.head.appendChild(fadeStyle);
 let touchStartX = 0;
 let touchStartY = 0;
 
-document.addEventListener('touchstart', function(e) {
+document.addEventListener('touchstart', function (e) {
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
 });
 
-document.addEventListener('touchend', function(e) {
+document.addEventListener('touchend', function (e) {
     const touchEndX = e.changedTouches[0].clientX;
     const touchEndY = e.changedTouches[0].clientY;
-    
+
     // Swipe up to create hearts
     if (touchStartY - touchEndY > 50) {
         createHeartBurst();
@@ -374,14 +455,14 @@ document.addEventListener('touchend', function(e) {
 });
 
 // Page visibility change - create hearts when returning to tab
-document.addEventListener('visibilitychange', function() {
+document.addEventListener('visibilitychange', function () {
     if (!document.hidden) {
         createHeartBurst();
     }
 });
 
 // Initialize with a welcome animation
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     setTimeout(() => {
         createHeartBurst();
     }, 500);

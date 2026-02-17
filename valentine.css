@@ -63,7 +63,7 @@ body {
 .title {
     font-size: 3rem;
     color: #d63384;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
     animation: heartbeat 1.5s ease infinite;
 }
@@ -379,13 +379,27 @@ body {
 
 /* Animations */
 @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
 }
 
 @keyframes floatUp {
@@ -393,12 +407,15 @@ body {
         transform: translateY(100vh) rotate(0deg);
         opacity: 0;
     }
+
     10% {
         opacity: 0.3;
     }
+
     90% {
         opacity: 0.3;
     }
+
     100% {
         transform: translateY(-100px) rotate(360deg);
         opacity: 0;
@@ -540,14 +557,27 @@ body {
 }
 
 @keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes fadeInDown {
@@ -555,6 +585,7 @@ body {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -566,6 +597,7 @@ body {
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -577,6 +609,7 @@ body {
         opacity: 0;
         transform: translateX(-30px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -588,6 +621,7 @@ body {
         opacity: 0;
         transform: translateX(30px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -595,8 +629,13 @@ body {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 /* Mobile Responsiveness */
@@ -604,67 +643,67 @@ body {
     .container {
         padding: 15px;
     }
-    
+
     .title {
         font-size: 2.5rem;
     }
-    
+
     .subtitle {
         font-size: 1rem;
     }
-    
+
     .love-message {
         padding: 30px 20px;
     }
-    
+
     .message-box h2 {
         font-size: 1.5rem;
     }
-    
+
     .love-text {
         font-size: 1.1rem;
     }
-    
+
     .love-text strong {
         font-size: 1.3rem;
     }
-    
+
     .heart {
         font-size: 2rem;
     }
-    
+
     .reasons h3,
     .love-counter h3,
     .memories h3 {
         font-size: 1.5rem;
     }
-    
+
     .reasons-list {
         grid-template-columns: 1fr;
     }
-    
+
     .counter {
         gap: 10px;
     }
-    
+
     .counter-item {
         min-width: 70px;
         padding: 15px 10px;
     }
-    
+
     .counter-item span {
         font-size: 1.5rem;
     }
-    
+
     .memory-gallery {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
-    
+
     .memory-icon {
         font-size: 2.5rem;
     }
-    
+
     .btn-surprise {
         padding: 12px 30px;
         font-size: 1.1rem;
@@ -675,35 +714,35 @@ body {
     .title {
         font-size: 2rem;
     }
-    
+
     .love-message {
         padding: 20px 15px;
     }
-    
+
     .message-box h2 {
         font-size: 1.3rem;
     }
-    
+
     .love-text {
         font-size: 1rem;
     }
-    
+
     .heart {
         font-size: 1.5rem;
     }
-    
+
     .heart-animation {
         gap: 10px;
     }
-    
+
     .memory-gallery {
         grid-template-columns: 1fr;
     }
-    
+
     .floating-heart {
         font-size: 1.5rem;
     }
-    
+
     .popup-content {
         max-width: 90%;
         padding: 20px;
@@ -722,7 +761,136 @@ body {
     }
 }
 
+/* Name highlight animation */
+.name-highlight {
+    color: #e83e8c;
+    font-weight: 700;
+    display: inline-block;
+    animation: nameGlow 2s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(232, 62, 140, 0.4);
+}
+
+@keyframes nameGlow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 8px rgba(232, 62, 140, 0.4), 0 0 12px rgba(255, 182, 193, 0.2);
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 0 0 16px rgba(232, 62, 140, 0.7), 0 0 20px rgba(255, 182, 193, 0.4);
+        transform: scale(1.05);
+    }
+}
+
 /* Utility Classes */
 .hidden {
     display: none;
+}
+
+/* Celebration overlay */
+#celebrationOverlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.42);
+    z-index: 10000;
+}
+
+#celebrationOverlay .celebration-card {
+    position: relative;
+    background: linear-gradient(180deg, #fff0f6, #fff7fb);
+    padding: 36px;
+    border-radius: 18px;
+    text-align: center;
+    max-width: 720px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+    transform: translateY(-8px);
+}
+
+#celebrationOverlay h2 {
+    font-size: 2rem;
+    color: #d63384;
+    margin: 0 0 8px;
+}
+
+#celebrationOverlay p {
+    color: #555;
+    margin: 0 0 12px;
+}
+
+#celebrationOverlay .emoji {
+    font-size: 3rem;
+    margin-bottom: 8px;
+}
+
+#celebrationOverlay .confetti-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: inherit;
+    z-index: 0;
+}
+
+.confetti-piece {
+    position: absolute;
+    top: -10vh;
+    width: 10px;
+    height: 14px;
+    border-radius: 2px;
+    opacity: 0.95;
+    transform-origin: center;
+    animation: confettiFall 3.6s linear forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0
+    }
+}
+
+#celebrationOverlay .celebration-actions {
+    margin-top: 14px;
+    z-index: 2;
+}
+
+.btn-close {
+    background: #d63384;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(214, 51, 132, 0.15);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(.9);
+        opacity: 0
+    }
+
+    60% {
+        transform: scale(1.03);
+        opacity: 1
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1
+    }
+}
+
+#celebrationOverlay .celebration-card {
+    animation: popIn .6s cubic-bezier(.2, .9, .2, 1);
 }

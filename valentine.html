@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>รักนะที่รัก ❤️ Valentine's Day</title>
+    <title>อยากให้รู้ว่ารักมากแค่ไหน ❤️ MY Love </title>
     <link rel="stylesheet" href="valentine.css">
     <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -12,8 +12,8 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1 class="title">ของขวัญวาเลนไทน์ 💕</h1>
-            <p class="subtitle">Happy Valentine's Day 2026</p>
+            <h1 class="title">ทีนี้คือจุดเริ่มต้นของเรานะ 💕</h1>
+            <p class="subtitle">MY Love💕</p>
         </header>
 
         <main class="main-content">
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="message-box">
-                    <h2>สิ่งที่ให้เค้าภูมิใจในตัวเธอนะ น้ำอ้อย💖</h2>
+                    <h2>สิ่งที่ให้เค้าภูมิใจในตัวเธอนะ <span class="name-highlight">แทน 💗</span></h2>
                     <p class="love-text">
                         ขอบคุณที่อยู่กับเค้านะ<br>
                         ขอโทษที่ทำเรื่องแย่ๆ<br>
@@ -46,7 +46,7 @@
 
             <section class="interactive-section">
                 <div class="love-counter">
-                    <h3>นับถอยหลังสู่ Valentine's Day</h3>
+                    <h3>นับถอยหลังสู่ครบ 1 ปี — 10/02/69 → 10/02/70</h3>
                     <div class="counter">
                         <div class="counter-item">
                             <span id="days">0</span>
@@ -142,6 +142,18 @@
                     <source src="image/fan_love.mp4" type="video/mp4">
                     เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
                 </video>
+            </div>
+        </div>
+    </div>
+
+    <div id="celebrationOverlay" class="popup-overlay hidden" aria-hidden="true">
+        <div class="celebration-card" role="dialog" aria-modal="true" aria-labelledby="celebrationTitle">
+            <div class="emoji">🎉</div>
+            <h2 id="celebrationTitle">สุขสันต์ครบรอบวันคุยกัน 🎊</h2>
+            <p>ครบ 1 ปีที่เราเริ่มคุยกัน — ขอบคุณที่อยู่ด้วยกันนะ 💖</p>
+            <div id="confettiContainer" class="confetti-container" aria-hidden="true"></div>
+            <div class="celebration-actions">
+                <button id="celebrateClose" class="btn-close">ปิด</button>
             </div>
         </div>
     </div>
