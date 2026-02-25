@@ -1,270 +1,185 @@
-// Password - คุณสามารถเปลี่ยนรหัสได้ที่นี่
-const CORRECT_PASSWORD = '000000'; // รหัส 6 ตัวอักษร
+// โมดูล Login – เก็บทุกอย่างในสโกปเดียว
+const Login = (function () {
+    'use strict';
 
-// DOM Elements
-const loginForm = document.getElementById('loginForm');
-const hiddenPasswordInput = document.getElementById('password');
-const pinInputs = Array.from(document.querySelectorAll('.pin-input'));
-const errorMessage = document.getElementById('errorMessage');
-const hintBtn = document.getElementById('hintBtn');
-const hintText = document.getElementById('hintText');
+    // รหัสผ่านที่ถูกรับค่า (เปลี่ยนได้ที่นี่)
+    const CORRECT_PASSWORD = '000000';
+    const MAX_ATTEMPTS = 3;
 
-// Maximum attempts
-let attempts = 0;
-const MAX_ATTEMPTS = 3;
+    const elements = {};
+    let attempts = 0;
+    let lockTimeout;
 
-// Form submission
-loginForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const enteredPassword = collectPin();
-    hiddenPasswordInput.value = enteredPassword;
+    function cache() {
+        elements.loginForm = document.getElementById('loginForm');
+        elements.hiddenPasswordInput = document.getElementById('password');
+        elements.pinInputs = Array.from(document.querySelectorAll('.pin-input'));
+        elements.errorMessage = document.getElementById('errorMessage');
+        elements.hintBtn = document.getElementById('hintBtn');
+        elements.hintText = document.getElementById('hintText');
+    }
 
-    // Log attempt to server (fire-and-forget)
-    fetch('api/submit_pin.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pin: enteredPassword, success: enteredPassword === CORRECT_PASSWORD })
-    }).catch(() => { /* ignore network errors */ });
-
-    // Check password
-    if (enteredPassword === CORRECT_PASSWORD) {
-        // Success animation
-        createSuccessAnimation();
-
-        // Redirect after animation -> go to playful confirm page first
-        setTimeout(() => {
-            window.location.href = 'confirm.html';
-        }, 1500);
-    } else {
-        // Wrong password
-        attempts++;
-        showError();
-
-        // Shake animation
-        loginForm.style.animation = 'shake 0.5s';
-        setTimeout(() => {
-            loginForm.style.animation = '';
-        }, 500);
-
-        // Disable form after max attempts
-        if (attempts >= MAX_ATTEMPTS) {
-            lockForm();
+    function collectPin() {
+        return elements.pinInputs.map(i => i.value.trim()).join('');
+    }
+    function focusPin(index) {
+        if (elements.pinInputs[index]) {
+            elements.pinInputs[index].focus();
+            elements.pinInputs[index].select();
         }
     }
-});
 
-// Show error message
-function showError() {
-    errorMessage.classList.remove('hidden');
-    setTimeout(() => {
-        errorMessage.classList.add('show');
-    }, 10);
-
-    // Clear error after 3 seconds
-    setTimeout(() => {
-        errorMessage.classList.remove('show');
+    function showError() {
+        elements.errorMessage.classList.remove('hidden');
+        setTimeout(() => elements.errorMessage.classList.add('show'), 10);
         setTimeout(() => {
-            errorMessage.classList.add('hidden');
-        }, 300);
-    }, 3000);
-}
+            elements.errorMessage.classList.remove('show');
+            setTimeout(() => elements.errorMessage.classList.add('hidden'), 300);
+        }, 3000);
+    }
 
-// Lock form after max attempts
-function lockForm() {
-    const loginBtn = document.querySelector('.login-btn');
-    loginBtn.disabled = true;
-    loginBtn.textContent = 'ลองใหม่ภายหลัง 🥺';
-    loginBtn.style.opacity = '0.5';
-    pinInputs.forEach(input => input.disabled = true);
+    function lockForm() {
+        const loginBtn = document.querySelector('.login-btn');
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'ลองใหม่ภายหลัง 🥺';
+        loginBtn.style.opacity = '0.5';
+        elements.pinInputs.forEach(i => i.disabled = true);
 
-    // Show lock message
-    errorMessage.textContent = 'พยายามเกินจำนวน รอ 1 นาทีนะ 🥺';
-    errorMessage.classList.remove('hidden');
-    errorMessage.classList.add('show');
+        elements.errorMessage.textContent = 'พยายามเกินจำนวน รอ 1 นาทีนะ 🥺';
+        elements.errorMessage.classList.remove('hidden');
+        elements.errorMessage.classList.add('show');
 
-    // Unlock after 1 minute
-    setTimeout(() => {
-        unlockForm();
-    }, 60000);
-}
+        lockTimeout = setTimeout(unlockForm, 60000);
+    }
 
-// Unlock form
-function unlockForm() {
-    const loginBtn = document.querySelector('.login-btn');
-    loginBtn.disabled = false;
-    loginBtn.innerHTML = '<span>เปิดดูจิ 💝</span>';
-    loginBtn.style.opacity = '1';
-    pinInputs.forEach(input => {
-        input.disabled = false;
-        input.value = '';
-    });
-    hiddenPasswordInput.value = '';
-    focusPin(0);
+    function unlockForm() {
+        const loginBtn = document.querySelector('.login-btn');
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<span>เปิดดูจิ 💝</span>';
+        loginBtn.style.opacity = '1';
+        elements.pinInputs.forEach(input => {
+            input.disabled = false;
+            input.value = '';
+        });
+        elements.hiddenPasswordInput.value = '';
+        focusPin(0);
 
-    errorMessage.classList.remove('show');
-    setTimeout(() => {
-        errorMessage.classList.add('hidden');
-    }, 300);
+        elements.errorMessage.classList.remove('show');
+        setTimeout(() => elements.errorMessage.classList.add('hidden'), 300);
+        attempts = 0;
+        clearTimeout(lockTimeout);
+    }
 
-    attempts = 0;
-}
+    function animateSuccess() {
+        const loginBox = document.querySelector('.login-box');
+        loginBox.style.animation = 'successPulse 1.5s ease';
+        for (let i = 0; i < 30; i++) createFloatingHeart();
+    }
 
-// Hint functionality
-hintBtn.addEventListener('click', function () {
-    hintText.classList.remove('hidden');
-    setTimeout(() => {
-        hintText.classList.add('show');
-    }, 10);
+    function createFloatingHeart() {
+        const hearts = ['❤️', '💕', '💖', '💗', '💝', '💓', '💞', '💘'];
+        const heart = document.createElement('div');
+        heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+        Object.assign(heart.style, {
+            position: 'fixed',
+            left: Math.random() * window.innerWidth + 'px',
+            top: Math.random() * window.innerHeight + 'px',
+            fontSize: Math.random() * 30 + 20 + 'px',
+            pointerEvents: 'none',
+            zIndex: '9999',
+            animation: 'successFloat 2s ease-out forwards'
+        });
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+    }
 
-    // Hide hint after 5 seconds
-    setTimeout(() => {
-        hintText.classList.remove('show');
+    function handleSubmit(e) {
+        e.preventDefault();
+        const entered = collectPin();
+        elements.hiddenPasswordInput.value = entered;
+
+        fetch('api/submit_pin.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pin: entered, success: entered === CORRECT_PASSWORD })
+        }).catch(() => { });
+
+        if (entered === CORRECT_PASSWORD) {
+            animateSuccess();
+            setTimeout(() => { window.location.href = 'confirm.html'; }, 1500);
+        } else {
+            attempts++;
+            showError();
+            elements.loginForm.style.animation = 'shake 0.5s';
+            setTimeout(() => elements.loginForm.style.animation = '', 500);
+            if (attempts >= MAX_ATTEMPTS) lockForm();
+        }
+    }
+
+    function showHint() {
+        elements.hintText.classList.remove('hidden');
+        setTimeout(() => elements.hintText.classList.add('show'), 10);
         setTimeout(() => {
-            hintText.classList.add('hidden');
-        }, 300);
-    }, 5000);
-});
-
-// Success animation
-function createSuccessAnimation() {
-    const loginBox = document.querySelector('.login-box');
-    loginBox.style.animation = 'successPulse 1.5s ease';
-
-    // Create heart explosion
-    for (let i = 0; i < 30; i++) {
-        createFloatingHeart();
+            elements.hintText.classList.remove('show');
+            setTimeout(() => elements.hintText.classList.add('hidden'), 300);
+        }, 5000);
     }
-}
 
-// Create floating hearts on success
-function createFloatingHeart() {
-    const hearts = ['❤️', '💕', '💖', '💗', '💝', '💓', '💞', '💘'];
-    const heart = document.createElement('div');
-    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
-    heart.style.position = 'fixed';
-    heart.style.left = Math.random() * window.innerWidth + 'px';
-    heart.style.top = Math.random() * window.innerHeight + 'px';
-    heart.style.fontSize = Math.random() * 30 + 20 + 'px';
-    heart.style.pointerEvents = 'none';
-    heart.style.zIndex = '9999';
-    heart.style.animation = 'successFloat 2s ease-out forwards';
-
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 2000);
-}
-
-// Add custom animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes shake {
-        0%, 100% { transform: translateX(0); }
-        25% { transform: translateX(-20px); }
-        75% { transform: translateX(20px); }
-    }
-    
-    @keyframes successPulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.1); background: rgba(255, 182, 193, 0.3); }
-        100% { transform: scale(1); opacity: 0; }
-    }
-    
-    @keyframes successFloat {
-        0% {
-            transform: translateY(0) scale(0);
-            opacity: 1;
+    function handlePinInput(event) {
+        let input = event.target;
+        input.value = input.value.replace(/[^0-9]/g, '');
+        const idx = Number(input.dataset.index);
+        if (input.value.length === 1 && idx < elements.pinInputs.length - 1) {
+            focusPin(idx + 1);
         }
-        50% {
-            transform: translateY(-50px) scale(1.5);
-            opacity: 1;
+        elements.hiddenPasswordInput.value = collectPin();
+    }
+    function handlePinKeydown(event) {
+        const input = event.target;
+        const idx = Number(input.dataset.index);
+        if (event.key === 'Backspace' && input.value === '' && idx > 0) {
+            focusPin(idx - 1);
+            elements.pinInputs[idx - 1].value = '';
+            elements.hiddenPasswordInput.value = collectPin();
+            event.preventDefault();
         }
-        100% {
-            transform: translateY(-150px) scale(0.5);
-            opacity: 0;
+        if (event.key === 'ArrowLeft' && idx > 0) {
+            event.preventDefault();
+            focusPin(idx - 1);
+        }
+        if (event.key === 'ArrowRight' && idx < elements.pinInputs.length - 1) {
+            event.preventDefault();
+            focusPin(idx + 1);
         }
     }
-`;
-document.head.appendChild(style);
-
-function collectPin() {
-    return pinInputs.map(input => input.value.trim()).join('');
-}
-
-function focusPin(index) {
-    if (pinInputs[index]) {
-        pinInputs[index].focus();
-        pinInputs[index].select();
-    }
-}
-
-function handlePinInput(event) {
-    const input = event.target;
-    let { value } = input;
-
-    // Keep only digits
-    value = value.replace(/[^0-9]/g, '');
-    input.value = value;
-
-    const index = Number(input.dataset.index);
-
-    if (value.length === 1 && index < pinInputs.length - 1) {
-        focusPin(index + 1);
-    }
-
-    hiddenPasswordInput.value = collectPin();
-}
-
-function handlePinKeydown(event) {
-    const input = event.target;
-    const index = Number(input.dataset.index);
-
-    if (event.key === 'Backspace' && input.value === '' && index > 0) {
-        focusPin(index - 1);
-        pinInputs[index - 1].value = '';
-        hiddenPasswordInput.value = collectPin();
+    function handlePinPaste(event) {
         event.preventDefault();
+        const paste = (event.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
+        if (!paste) return;
+        const digits = paste.slice(0, elements.pinInputs.length).split('');
+        elements.pinInputs.forEach((input, i) => { input.value = digits[i] || ''; });
+        elements.hiddenPasswordInput.value = collectPin();
+        focusPin(Math.min(digits.length, elements.pinInputs.length - 1));
     }
 
-    if (event.key === 'ArrowLeft' && index > 0) {
-        event.preventDefault();
-        focusPin(index - 1);
+    function addPinListeners() {
+        elements.pinInputs.forEach(input => {
+            input.addEventListener('input', handlePinInput);
+            input.addEventListener('keydown', handlePinKeydown);
+            input.addEventListener('paste', handlePinPaste);
+        });
     }
 
-    if (event.key === 'ArrowRight' && index < pinInputs.length - 1) {
-        event.preventDefault();
-        focusPin(index + 1);
+    function init() {
+        cache();
+        elements.loginForm.addEventListener('submit', handleSubmit);
+        elements.hintBtn.addEventListener('click', showHint);
+        addPinListeners();
+        focusPin(0);
+        setTimeout(createFloatingHeart, 500);
     }
-}
 
-function handlePinPaste(event) {
-    event.preventDefault();
-    const pasteData = (event.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '');
-    if (!pasteData) return;
+    return { init };
+})();
 
-    const digits = pasteData.slice(0, pinInputs.length).split('');
-    pinInputs.forEach((input, idx) => {
-        input.value = digits[idx] || '';
-    });
-    hiddenPasswordInput.value = collectPin();
-
-    const nextIndex = Math.min(digits.length, pinInputs.length - 1);
-    focusPin(nextIndex);
-}
-
-pinInputs.forEach(input => {
-    input.addEventListener('input', handlePinInput);
-    input.addEventListener('keydown', handlePinKeydown);
-    input.addEventListener('paste', handlePinPaste);
-});
-
-// Initialize
-document.addEventListener('DOMContentLoaded', function () {
-    focusPin(0);
-
-    // Add welcome animation
-    setTimeout(() => {
-        createFloatingHeart();
-    }, 500);
-});
+document.addEventListener('DOMContentLoaded', Login.init);

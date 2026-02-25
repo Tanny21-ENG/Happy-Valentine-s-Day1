@@ -10,8 +10,10 @@
 </head>
 
 <body>
+    <!-- หน้าตั้งค่า PIN -->
     <div class="login-container">
         <div class="login-box">
+            <!-- ฝนหัวใจพื้นหลัง -->
             <div class="heart-rain">
                 <div class="heart">❤️</div>
                 <div class="heart">💕</div>
@@ -23,8 +25,10 @@
             <h1 class="login-title">ตั้งค่ารหัส <span class="pin-highlight">PIN</span></h1>
             <p class="login-subtitle">กรอก PIN ความรักของเราให้ครบ 6 หลักนะ 💘</p>
 
+            <!-- ฟอร์มกรอก PIN -->
             <form id="loginForm" class="login-form" autocomplete="off">
                 <div class="pin-group" aria-label="กรอก PIN 6 หลัก">
+                    <!-- แต่ละช่องใส่เลข 1 หลัก -->
                     <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-index="0"
                         aria-label="หลักที่ 1">
                     <input type="password" inputmode="numeric" maxlength="1" class="pin-input" data-index="1"
@@ -45,10 +49,12 @@
                     <span>เปิดดูความรัก 💝</span>
                 </button>
 
+                <!-- ข้อความแสดงเมื่อพลาด -->
                 <div id="errorMessage" class="error-message hidden">
                     รหัสไม่ถูกต้อง ลองใหม่นะ 🥺
                 </div>
 
+                <!-- ปุ่มแสดงเคล็ดลับ -->
                 <div class="hint">
                     <button type="button" id="hintBtn" class="hint-btn">
                         💡 เคล็ดลับ
@@ -64,6 +70,7 @@
             </div>
         </div>
 
+        <!-- หัวใจลอยเพิ่มบรรยากาศ -->
         <div class="floating-hearts">
             <div class="floating-heart">❤️</div>
             <div class="floating-heart">💕</div>

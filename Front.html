@@ -5,18 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>อยากให้รู้ว่ารักมากแค่ไหน ❤️ MY Love </title>
+    <!-- เชื่อมสไตล์หลัก -->
     <link rel="stylesheet" href="Front.css">
     <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <!-- คอนเทนเนอร์หลักแบ่งเป็น header / main / footer -->
     <div class="container">
+        <!-- ส่วนหัวเว็บไซต์ -->
         <header class="header">
             <h1 class="title">ทีนี้คือจุดเริ่มต้นของเรานะ 💕</h1>
             <p class="subtitle">MY Love💕</p>
         </header>
 
+        <!-- เนื้อหาหลัก -->
         <main class="main-content">
+            <!-- ข้อความรักพร้อมแอนิเมชันหัวใจ -->
             <section class="love-message">
                 <div class="heart-animation">
                     <div class="heart">❤️</div>
@@ -35,6 +40,7 @@
                 </div>
             </section>
 
+            <!-- เหตุผลที่ชอบ/รักกัน -->
             <section class="reasons">
                 <h3>3 เหตุผลที่เค้าคุยกับเธอแล้วรู้สึกดีมากๆ</h3>
                 <div class="reasons-list">
@@ -44,6 +50,7 @@
                 </div>
             </section>
 
+            <!-- ส่วนอินเทอร์แอกทีฟ: นับถอยหลัง ปุ่มเซอร์ไพรซ์ -->
             <section class="interactive-section">
                 <div class="love-counter">
                     <h3>นับถอยหลังสู่ครบ 1 ปี — 10/02/69 → 10/02/70</h3>
@@ -77,9 +84,11 @@
                 </div>
             </section>
 
+            <!-- แกลเลอรีความทรงจำ -->
             <section class="memories">
                 <h3>ความทรงจำที่สวยงาม</h3>
                 <div class="memory-gallery">
+                    <!-- การ์ดแต่ละใบเก็บชื่อและลิงก์รูปไว้ใน data-attribute -->
                     <div class="memory-card" data-title="เราเจอกันครั้งแรก"
                         data-images="image/IMG_9895.JPG,image/IMG_9896.JPG">
                         <div class="memory-icon">🎬</div>
@@ -97,12 +106,14 @@
             </section>
         </main>
 
+        <!-- ส่วนท้าย -->
         <footer class="footer">
             <p>ทำด้วยความชอบ ❤️ สำหรับคนที่น่ารักที่สุด</p>
             <p class="signature">- ผู้ที่ภูมิใจกับเธอมากที่สุด -</p>
         </footer>
     </div>
 
+    <!-- หัวใจลอย background effect -->
     <div class="floating-hearts">
         <div class="floating-heart">❤️</div>
         <div class="floating-heart">💕</div>
@@ -111,7 +122,7 @@
         <div class="floating-heart">💝</div>
     </div>
 
-    <!-- Music Player -->
+    <!-- Music player ควบคุมเพลงและระดับเสียง -->
     <div class="music-control">
         <button id="musicBtn" class="btn-music" title="เล่น/หยุดเพลง">
             <span class="music-icon">🎵</span>
@@ -125,6 +136,8 @@
             Your browser does not support the audio element.
         </audio>
     </div>
+
+    <!-- ป๊อปอัพแสดงความทรงจำ -->
     <div id="memoryPopup" class="popup-overlay hidden">
         <div class="popup-content">
             <button id="popupClose" class="popup-close" type="button">×</button>
@@ -133,6 +146,7 @@
         </div>
     </div>
 
+    <!-- ป๊อปอัพวิดีโอเซอร์ไพรซ์ -->
     <div id="videoPopup" class="popup-overlay hidden" aria-hidden="true">
         <div class="popup-content popup-video" role="dialog" aria-modal="true" aria-labelledby="videoPopupTitle">
             <button id="videoClose" class="popup-close" type="button" aria-label="ปิดวิดีโอ">×</button>
