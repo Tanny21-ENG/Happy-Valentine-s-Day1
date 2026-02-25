@@ -48,8 +48,10 @@ try {
     ]);
 
     echo json_encode(['ok' => true]);
+    exit;
 } catch (Exception $e) {
     http_response_code(500);
     // For development show error; remove message in production
     echo json_encode(['error' => 'DB error', 'message' => $e->getMessage()]);
+    exit;
 }
