@@ -5,15 +5,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>อยากให้รู้ว่ารักมากแค่ไหน ❤️ MY Love </title>
-    <link rel="stylesheet" href="Front.css">
+    <!-- เชื่อมสไตล์หลัก -->
+    <link rel="stylesheet" href="valentine.css">
     <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <!-- เนื้อหาเหมือน Front.html ทั้งหมด… -->
-    <!-- (คุณสามารถคัดลอกเนื้อหาจาก Front.html มาไว้ที่นี่) -->
-    …
-    <script src="Front.js"></script>
+    <!-- คอนเทนเนอร์หลักแบ่งเป็น header / main / footer -->
+    <div class="container">
+        <!-- ส่วนหัวเว็บไซต์ -->
+        <header class="header">
+            <h1 class="title">ทีนี้คือจุดเริ่มต้นของเรานะ 💕</h1>
+            <p class="subtitle">MY Love💕</p>
+        </header>
+
+        <!-- เนื้อหาหลัก -->
+        <main class="main-content">
+            <!-- ข้อความรักพร้อมแอนิเมชันหัวใจ -->
+            <section class="love-message">
+                <div class="heart-animation">
+                    <div class="heart">❤️</div>
+                    <div class="heart">💕</div>
+                    <div class="heart">💖</div>
+                </div>
+
+                <div class="message-box">
+                    <h2>สิ่งที่ให้เค้าภูมิใจในตัวเธอนะ <span class="name-highlight">แทน 💗</span></h2>
+                    <p class="love-text">
+                        ขอบคุณที่อยู่กับเค้านะ<br>
+                        ขอโทษที่ทำเรื่องแย่ๆ<br>
+                        อาจจะมีบ้างนะ<br>
+                        <strong>ขอบคุณที่จะคอยเตือนกันนะ 🌍💕</strong>
+                    </p>
+                </div>
+            </section>
+
+            <!-- เหตุผลที่ชอบ/รักกัน -->
+            <section class="reasons">
+                <h3>3 เหตุผลที่เค้าคุยกับเธอแล้วรู้สึกดีมากๆ</h3>
+                <div class="reasons-list">
+                    <div class="reason-item">เวลาที่เธอเขินน่ารักที่สุด 😊</div>
+                    <div class="reason-item">เธอเป็นคนตรงมากๆ 💝</div>
+                    <div class="reason-item">เสียงหัวเราะของเธอดูน่ารักมากกก็คนน่ารักอะเนอะ🎵</div>
+                </div>
+            </section>
+
+            <!-- ส่วนอินเทอร์แอกทีฟ: นับถอยหลัง ปุ่มเซอร์ไพรซ์ -->
+            <section class="interactive-section">
+                <div class="love-counter">
+                    <h3>นับถอยหลังสู่ครบ 1 ปี — 10/02/69 → 10/02/70</h3>
+                    <div class="counter">
+                        <div class="counter-item">
+                            <span id="days">0</span>
+                            <label>วัน</label>
+                        </div>
+                        <div class="counter-item">
+                            <span id="hours">12</span>
+                            <label>ชั่วโมง</label>
+                        </div>
+                        <div class="counter-item">
+                            <span id="minutes">0</span>
+                            <label>นาที</label>
+                        </div>
+                        <div class="counter-item">
+                            <span id="seconds">0</span>
+                            <label>วินาที</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="love-button">
+                    <button id="surpriseBtn" class="btn-surprise">
+                        คลิกเพื่อรับความรัก 💝
+                    </button>
+                    <div id="surpriseMessage" class="surprise-message hidden">
+                        เค้่าจะรักเบบี๋ตลอดไป ไม่ว่าจะเกิดอะไรขึ้น ❤️
+                    </div>
+                </div>
+            </section>
+
+            <!-- แกลเลอรีความทรงจำ -->
+            <section class="memories">
+                <h3>ความทรงจำที่สวยงาม</h3>
+                <div class="memory-gallery">
+                    <!-- การ์ดแต่ละใบเก็บชื่อและลิงก์รูปไว้ใน data-attribute -->
+                    <div class="memory-card" data-title="เราเจอกันครั้งแรก"
+                        data-images="image/IMG_9895.JPG,image/IMG_9896.JPG">
+                        <div class="memory-icon">🎬</div>
+                        <p>เราเจอกันครั้งแรก รอถึงเวลาก่อนนะ </p>
+                    </div>
+                    <div class="memory-card" data-title="รูปคู่เรา" data-images="image/IMG_3715.JPG">
+                        <div class="memory-icon">👩🏻‍❤️‍👨🏻</div>
+                        <p>รูปโพลาลอยครั้งแรก รอถึงเวลาก่อนนะ</p>
+                    </div>
+                    <div class="memory-card" data-title="เราไปเที่ยว" data-images="image/IMG_9462.JPG">
+                        <div class="memory-icon">🎂</div>
+                        <p>เที่ยวต่างจังหวัดด้วยกันครั้งแรก รอถึงเวลาก่อนนะ</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ส่วนท้าย -->
+        <footer class="footer">
+            <p>ทำด้วยความชอบ ❤️ สำหรับคนที่น่ารักที่สุด</p>
+            <p class="signature">- ผู้ที่ภูมิใจกับเธอมากที่สุด -</p>
+        </footer>
+    </div>
+
+    <!-- หัวใจลอย background effect -->
+    <div class="floating-hearts">
+        <div class="floating-heart">❤️</div>
+        <div class="floating-heart">💕</div>
+        <div class="floating-heart">💖</div>
+        <div class="floating-heart">💗</div>
+        <div class="floating-heart">💝</div>
+    </div>
+
+    <!-- Music player ควบคุมเพลงและระดับเสียง -->
+    <div class="music-control">
+        <button id="musicBtn" class="btn-music" title="เล่น/หยุดเพลง">
+            <span class="music-icon">🎵</span>
+        </button>
+        <div class="volume-control">
+            <input id="volumeSlider" class="volume-slider" type="range" min="0" max="1" step="0.01" value="0.4"
+                aria-label="ปรับความดัง">
+        </div>
+        <audio id="bgMusic" loop autoplay playsinline>
+            <source src="music/- Three Man Down _Official MV_.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- ป๊อปอัพแสดงความทรงจำ -->
+    <div id="memoryPopup" class="popup-overlay hidden">
+        <div class="popup-content">
+            <button id="popupClose" class="popup-close" type="button">×</button>
+            <div class="popup-title">ความทรงจำของเรา</div>
+            <div class="popup-gallery"></div>
+        </div>
+    </div>
+
+    <!-- ป๊อปอัพวิดีโอเซอร์ไพรซ์ -->
+    <div id="videoPopup" class="popup-overlay hidden" aria-hidden="true">
+        <div class="popup-content popup-video" role="dialog" aria-modal="true" aria-labelledby="videoPopupTitle">
+            <button id="videoClose" class="popup-close" type="button" aria-label="ปิดวิดีโอ">×</button>
+            <div class="popup-title" id="videoPopupTitle">รอถึงเวลาก่อนนะ</div>
+            <div class="video-wrapper">
+                <video id="surpriseVideo" controls playsinline preload="metadata">
+                    <source src="image/fan_love.mp4" type="video/mp4">
+                    เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+                </video>
+            </div>
+        </div>
+    </div>
+    <script src="valentine.js"></script>
 </body>
 
 </html>
+
+function goToValentine(delay = 600){
+setTimeout(()=>{ window.location.href = 'valentine.html'; }, delay);
+}
